@@ -75,7 +75,7 @@ export function ProjectsCarousel({
               }}
               type="button"
               className={cn(
-                'np-focus group shrink-0 snap-start basis-[86%] text-left sm:basis-[calc(50%-0.5rem)] xl:basis-[calc((100%-2rem)/3)]',
+                'np-focus group shrink-0 snap-start basis-full text-left sm:basis-[calc(50%-0.5rem)] xl:basis-[calc((100%-2rem)/3)]',
                 'transition-transform duration-(--np-duration-fast) active:scale-[0.99]',
               )}
               aria-label={`Show ${project.title}`}
@@ -92,7 +92,7 @@ export function ProjectsCarousel({
               >
                 <ProductVisual
                   project={project}
-                  className="aspect-4/5 rounded-(--np-radius-lg) sm:aspect-16/10"
+                  className="aspect-16/10 rounded-(--np-radius-lg)"
                 />
 
                 <div className="mt-5">
@@ -191,7 +191,7 @@ export function ProjectsCarousel({
           <ProductVisual
             project={activeProject}
             variant="feature"
-            className="aspect-5/6 min-h-88 sm:aspect-16/10 sm:min-h-96"
+            className="aspect-16/10 min-h-52 sm:min-h-72"
           />
 
           <div className="flex flex-col gap-6">

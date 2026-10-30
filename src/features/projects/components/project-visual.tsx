@@ -307,7 +307,7 @@ export function ProductVisual({
         <img
           src={project.image}
           alt={`${project.title} preview`}
-          className="size-full object-cover object-top"
+          className="size-full object-cover object-center"
           loading="lazy"
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent_55%,rgba(5,7,12,.54)_100%)]" />

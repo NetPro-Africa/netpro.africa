@@ -58,7 +58,8 @@ export const heroContent = {
   ],
   description:
     'NetPro delivers bespoke software solutions, technology  transformation, and innovation-led services across education,  healthcare, government, SMEs and enterprises in sub-Saharan Africa.',
-  pretext: 'Transforming Africa Through AI & Technology',
+  pretext:
+    'Transforming Africa’s Institutions through AI & Innovative Technologies',
   primaryCta: 'Talk to an Expert',
   secondaryCta: 'Explore Products',
 };
