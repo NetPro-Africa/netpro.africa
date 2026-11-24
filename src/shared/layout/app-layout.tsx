@@ -58,6 +58,7 @@ const siteLinks = [
   { label: 'NetPro International', href: 'https://www.netpro.international' },
   { label: 'NetPro Software', href: 'https://www.netpro.software' },
   { label: 'Netpro Academy', href: 'https://academy.netpro.africa' },
+  { label: 'Netpro Support', href: 'https:/support.netpro.africa' },
 ] as const;
 
 const officeLocations = [
