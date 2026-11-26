@@ -14,7 +14,11 @@ export function HeroSection() {
           <p className="np-hero-support max-w-5xl leading-8 text-foreground/90 sm:text-lg">
             {heroContent.pretext}
           </p>
-          <div className="relative w-full">
+          {/* The visible headline types itself out letter by letter, so the
+              page's one <h1> carries the full title for search engines and
+              screen readers, and the animation is hidden from them. */}
+          <h1 className="sr-only">{heroContent.title}</h1>
+          <div className="relative w-full" aria-hidden="true">
             {/* holds height so the page never jumps when text is empty between cycles */}
             <div
               aria-hidden

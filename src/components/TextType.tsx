@@ -4,7 +4,6 @@
 
 import { useEffect, useRef, useState, createElement, useMemo, useCallback } from 'react';
 import type { ElementType, ReactNode } from 'react';
-import { gsap } from 'gsap';
 
 interface TextTypeProps {
   className?: string;
@@ -53,7 +52,6 @@ const TextType = ({
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(!startOnVisible);
-  const cursorRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLElement>(null);
 
   const textArray = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
@@ -86,19 +84,6 @@ const TextType = ({
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [startOnVisible]);
-
-  useEffect(() => {
-    if (showCursor && cursorRef.current) {
-      gsap.set(cursorRef.current, { opacity: 1 });
-      gsap.to(cursorRef.current, {
-        opacity: 0,
-        duration: cursorBlinkDuration,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power2.inOut'
-      });
-    }
-  }, [showCursor, cursorBlinkDuration]);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -181,17 +166,22 @@ const TextType = ({
       className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
       ...props
     },
-    <span className="inline" style={{ color: getCurrentTextColor() || 'inherit' }}>
+    // The cursor is drawn by CSS after the text (np-text-type-caret in
+    // index.css), not as its own element: an element that moves with every
+    // typed letter counts as a layout shift (CLS). It blinks with CSS rather
+    // than GSAP, which kept a large library on the page's critical path.
+    <span
+      className={`inline ${showCursor && !shouldHideCursor ? 'np-text-type-caret' : ''} ${cursorClassName}`}
+      style={
+        {
+          color: getCurrentTextColor() || 'inherit',
+          '--np-caret': JSON.stringify(typeof cursorCharacter === 'string' ? cursorCharacter : '|'),
+          '--np-caret-blink': `${cursorBlinkDuration * 2}s`,
+        } as React.CSSProperties
+      }
+    >
       {displayedText}
-    </span>,
-    showCursor && (
-      <span
-        ref={cursorRef}
-        className={`ml-1 inline-block opacity-100 ${shouldHideCursor ? 'hidden' : ''} ${cursorClassName}`}
-      >
-        {cursorCharacter}
-      </span>
-    )
+    </span>
   );
 };
 

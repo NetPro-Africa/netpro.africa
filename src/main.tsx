@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { RouterProvider } from '@tanstack/react-router'
 
 import { AppProviders } from '@/app/providers/app-providers'
@@ -24,10 +24,23 @@ window.addEventListener('vite:preloadError', (event) => {
   reloadForNewVersion()
 })
 
-createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root')!
+const app = (
   <StrictMode>
     <AppProviders>
       <RouterProvider router={router} />
     </AppProviders>
-  </StrictMode>,
+  </StrictMode>
 )
+
+if (container.hasChildNodes()) {
+  // The build rendered this page into the HTML (scripts/prepare-deploy.mjs).
+  // Load the route (its code is preloaded) so the first client render matches
+  // that HTML, then take it over instead of drawing it again. `ssr` is the
+  // flag TanStack's own server rendering sets before hydrating: it renders
+  // the routes the same way the build did and skips loading them twice.
+  router.ssr = { manifest: undefined }
+  void router.load().then(() => hydrateRoot(container, app))
+} else {
+  createRoot(container).render(app)
+}

@@ -1,6 +1,52 @@
-import { motion, useInView, useReducedMotion } from 'motion/react';
-import type { ComponentType } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import type { ComponentType, RefObject } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+
+// Small stand-ins for Motion's useInView/useReducedMotion. The sections only
+// ever animated with CSS transitions, so Motion (a large library on every
+// page's critical path) isn't needed here.
+
+const reducedMotionQuery = '(prefers-reduced-motion: reduce)';
+
+function useReducedMotion() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const query = window.matchMedia(reducedMotionQuery);
+      query.addEventListener('change', onChange);
+      return () => query.removeEventListener('change', onChange);
+    },
+    () => window.matchMedia(reducedMotionQuery).matches,
+    // Build-time render and hydration: assume motion is fine.
+    () => false,
+  );
+}
+
+/** True once the element has been `amount` visible (stays true). */
+function useInViewOnce(
+  ref: RefObject<HTMLElement | null>,
+  amount: number,
+  skip: boolean,
+) {
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (skip || inView || !element) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: amount, rootMargin: '0px 0px -10% 0px' },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [ref, amount, skip, inView]);
+
+  return inView;
+}
 
 export type AnimatedPageSectionConfig = {
   id: string;
@@ -54,16 +100,21 @@ function AnimatedPageSection({
   prefersReducedMotion,
 }: AnimatedPageSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [fallbackInView, setFallbackInView] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
-  const [animationComplete, setAnimationComplete] = useState(false);
   const resolvedSection = resolveSection(section, index);
+  // The first section (the hero) is on screen when the page opens: show it
+  // straight away. Fading it in held back the page's largest paint (LCP);
+  // its contents have their own entrance animations.
+  const [fallbackInView, setFallbackInView] = useState(false);
+  const [hasEntered, setHasEntered] = useState(resolvedSection.hero);
+  const [animationComplete, setAnimationComplete] = useState(
+    resolvedSection.hero,
+  );
   const SectionComponent = resolvedSection.Component;
-  const isInView = useInView(ref, {
-    once: true,
-    amount: resolvedSection.amount,
-    margin: '0px 0px -10% 0px',
-  });
+  const isInView = useInViewOnce(
+    ref,
+    resolvedSection.amount,
+    resolvedSection.hero,
+  );
   const isVisible = resolvedSection.hero || isInView || fallbackInView;
   const shouldShow = isVisible && hasEntered;
   const delaySeconds = prefersReducedMotion
@@ -159,7 +210,7 @@ function AnimatedPageSection({
   }, [delaySeconds, durationSeconds, shouldShow]);
 
   return (
-    <motion.div
+    <div
       ref={ref}
       key={resolvedSection.id}
       {...dataProps}
@@ -177,10 +228,18 @@ function AnimatedPageSection({
           ? 'ease-out'
           : 'cubic-bezier(0.16, 1, 0.3, 1)',
         willChange: isVisible && !animationComplete ? 'opacity, transform' : 'auto',
+        // Sections below the first screen: the browser skips their layout
+        // and paint until they're near the viewport. Pages arrive fully
+        // rendered in the HTML, and laying out all of them before the first
+        // paint took ~2.5 s on a mid-range phone. `auto` remembers each
+        // section's real height once seen, so scrolling doesn't jump.
+        ...(resolvedSection.hero
+          ? {}
+          : { contentVisibility: 'auto', containIntrinsicSize: 'auto 900px' }),
       }}
     >
       <SectionComponent />
-    </motion.div>
+    </div>
   );
 }
 

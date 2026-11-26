@@ -13,7 +13,7 @@
 // The head tags come from the app's own SEO code (src/prerender.ts), loaded
 // through Vite, so the static HTML and the running app never disagree.
 
-import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createServer } from 'vite';
 
@@ -30,7 +30,6 @@ const vite = await createServer({
   optimizeDeps: { noDiscovery: true, include: [] },
 });
 const seo = await vite.ssrLoadModule('/src/prerender.ts');
-await vite.close();
 
 const siteUrl = seo.absoluteUrl('/');
 const siteHost = new URL(siteUrl).host.replace(/^www\./, '');
@@ -98,7 +97,14 @@ const shellHtml = (await readFile(path.join(distDir, 'index.html'), 'utf8'))
   .replace(/\s*<(title|script)\s+data-prerender[\s\S]*?<\/\1>/g, '')
   .replace(/\s*<(meta|link)\s+data-prerender[\s\S]*?\/>/g, '')
   .replace(/\s*<link rel="preload" as="(?:font|image)"[^>]*>/g, '')
-  .replace(/(<meta name="viewport"[^>]*>)/, `$1\n    ${fontPreload}`);
+  .replace(/\s*<link rel="modulepreload" data-page-chunk[^>]*>/g, '')
+  // Pages rendered in the browser need their scripts straight away.
+  .replace(
+    /<script>document\.addEventListener\("DOMContentLoaded"[^<]*?s\.src="([^"]+)"[^<]*<\/script>/,
+    '<script type="module" crossorigin src="$1"></script>',
+  )
+  .replace(/(<meta name="viewport"[^>]*>)/, `$1\n    ${fontPreload}`)
+  .replace(/<div id="root">[\s\S]*<\/div>(\s*<\/body>)/, '<div id="root"></div>$1');
 
 const withHead = (head) =>
   shellHtml.replace(
@@ -172,17 +178,123 @@ const heroPreload = `<link rel="preload" as="image" fetchpriority="high" imagesr
 const withHeroPreload = (html) =>
   html.replace(/(<meta name="viewport"[^>]*>)/, `$1\n    ${heroPreload}`);
 
+// Each page's code is a lazy chunk (src/app/router/lazy-pages.ts) that the
+// browser would only find after the main script has run: one more round trip
+// before anything shows. Listing a page's chunks in its HTML fetches them
+// alongside the main script.
+const PAGE_MODULES = {
+  '/': 'src/features/home/pages/home-page.tsx',
+  '/about-us': 'src/features/about/pages/about-page.tsx',
+  '/services': 'src/features/services/pages/services-page.tsx',
+  '/products': 'src/features/projects/pages/projects-page.tsx',
+  '/contact-us': 'src/features/contact/pages/contact-page.tsx',
+  '/careers': 'src/features/careers/pages/careers-page.tsx',
+  '/blog': 'src/features/blog/pages/blog-page.tsx',
+  '/news': 'src/features/news/pages/news-page.tsx',
+  article: 'src/features/news/pages/news-article-page.tsx',
+};
+const manifestPath = path.join(distDir, '.vite', 'manifest.json');
+const manifest = await readFile(manifestPath, 'utf8').then(JSON.parse, () => null);
+if (!manifest) console.warn('! No build manifest (run `pnpm build`): page chunks not preloaded.');
+// Only needed here; keep it out of the upload.
+await rm(path.join(distDir, '.vite'), { recursive: true, force: true });
+
+/** The page chunk and every chunk it statically imports, minus those the
+ * entry script already preloads. */
+function pageChunks(source) {
+  const entry = Object.values(manifest).find((chunk) => chunk.isEntry);
+  const alreadyLoaded = new Set([entry.file]);
+  const visitEntry = (key) => {
+    for (const dep of manifest[key]?.imports ?? []) {
+      if (!alreadyLoaded.has(manifest[dep].file)) {
+        alreadyLoaded.add(manifest[dep].file);
+        visitEntry(dep);
+      }
+    }
+  };
+  visitEntry(Object.keys(manifest).find((key) => manifest[key] === entry));
+
+  const files = new Set();
+  const visit = (key) => {
+    const chunk = manifest[key];
+    if (!chunk || alreadyLoaded.has(chunk.file) || files.has(chunk.file)) return;
+    files.add(chunk.file);
+    (chunk.imports ?? []).forEach(visit);
+  };
+  visit(source);
+  return [...files];
+}
+
+function withPageChunks(html, key) {
+  const source = PAGE_MODULES[key];
+  if (!source || !manifest) return html;
+  const links = pageChunks(source)
+    .map(
+      (file) =>
+        `<link rel="modulepreload" data-page-chunk crossorigin href="${seo.withBasePath(`/${file}`)}">`,
+    )
+    .join('\n    ');
+  return links ? html.replace('</head>', `    ${links}\n  </head>`) : html;
+}
+
+// Each page's content, rendered by the app itself (src/entry-prerender.tsx),
+// goes inside <div id="root">: the page shows before any JavaScript runs,
+// and src/main.tsx hydrates it. Crawlers also get the full text.
+// /news normalises its address to ?page=1, so render it there.
+const pageBodies = new Map();
+for (const page of pages) {
+  const url = page.path === '/news' ? '/news?page=1' : page.path;
+  try {
+    pageBodies.set(page.path, await seo.renderPage(url));
+  } catch (error) {
+    console.warn(`! Could not render ${page.path} to HTML (${error.message}); it loads client-side.`);
+  }
+}
+await vite.close();
+
+// With the page already in the HTML, its JavaScript only has to arrive in time
+// to hydrate, not to paint. So it starts after the first frame is drawn:
+// on a phone connection ~250 kB of scripts otherwise competes with the CSS,
+// font and hero image that the first paint needs. Links work as plain links
+// until then; menus and buttons come alive a moment later.
+const withDeferredScripts = (html) =>
+  html
+    .replace(/\s*<link rel="modulepreload"[^>]*>/g, '')
+    .replace(
+      /<script type="module" crossorigin src="([^"]+)"><\/script>/,
+      (_, src) =>
+        `<script>document.addEventListener("DOMContentLoaded",function(){requestAnimationFrame(function(){setTimeout(function(){var s=document.createElement("script");s.type="module";s.src=${JSON.stringify(src)};document.head.appendChild(s)})})})</script>`,
+    );
+
+const withBody = (html, rendered) =>
+  rendered
+    ? withDeferredScripts(
+        html
+          .replace('</head>', `    ${rendered.head}\n  </head>`)
+          .replace('<div id="root"></div>', `<div id="root">${rendered.body}</div>`),
+      )
+    : html;
+
 await Promise.all([
   ...pages.map((page) =>
     writePage(
       page.path,
-      page.path === '/'
-        ? withHeroPreload(withHead(seo.routeHead(page)))
-        : withHead(seo.routeHead(page)),
+      withBody(
+        withPageChunks(
+          page.path === '/'
+            ? withHeroPreload(withHead(seo.routeHead(page)))
+            : withHead(seo.routeHead(page)),
+          page.path,
+        ),
+        pageBodies.get(page.path),
+      ),
     ),
   ),
   ...articles.map((article) =>
-    writePage(seo.articlePath(article._id), withHead(seo.articleHead(article))),
+    writePage(
+      seo.articlePath(article._id),
+      withPageChunks(withHead(seo.articleHead(article)), 'article'),
+    ),
   ),
 ]);
 

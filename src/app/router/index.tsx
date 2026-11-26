@@ -2,6 +2,7 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
+  type RouterHistory,
 } from '@tanstack/react-router';
 
 import { RootRouteComponent } from '@/app/router/root-route';
@@ -156,16 +157,23 @@ const routeTree = rootRoute.addChildren([
   newsArticleRoute,
 ]);
 
-export const router = createRouter({
-  routeTree,
-  defaultPreload: 'intent',
-  defaultNotFoundComponent: NotFoundPage,
-  defaultErrorComponent: RouteErrorPage,
-  defaultPendingComponent: PageLoading,
-  basepath: routerBasePath,
-});
+/** `history` is a memory history when the build renders a page to HTML
+ * (src/entry-prerender.tsx); the browser uses its own. */
+export function createAppRouter(history?: RouterHistory) {
+  return createRouter({
+    routeTree,
+    history,
+    defaultPreload: 'intent',
+    defaultNotFoundComponent: NotFoundPage,
+    defaultErrorComponent: RouteErrorPage,
+    defaultPendingComponent: PageLoading,
+    basepath: routerBasePath,
+  });
+}
 
-preloadAllPages();
+export const router = createAppRouter();
+
+if (typeof window !== 'undefined') preloadAllPages();
 
 declare module '@tanstack/react-router' {
   interface Register {

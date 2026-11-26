@@ -520,3 +520,28 @@
     transform: translateX(-50%) !important;
   }
 }
+
+/* Typing cursor in TextType, drawn after the text so it never counts as a
+   layout shift. One blink = fade out and back in. */
+.np-text-type-caret::after {
+  animation: np-text-type-blink var(--np-caret-blink, 1s) ease-in-out infinite;
+  content: var(--np-caret, '|');
+  display: inline-block;
+  margin-left: 0.25rem;
+}
+
+@keyframes np-text-type-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np-text-type-caret::after {
+    animation: none;
+  }
+}
