@@ -25,7 +25,6 @@ export function ProjectsCarousel({
 }: ProjectsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isExpanded, setExpanded] = useState(false);
-  const hasHandledInitialActiveItem = useRef(false);
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const activeProject = projects[activeIndex];
   const countLabel = useMemo(
@@ -34,15 +33,22 @@ export function ProjectsCarousel({
   );
 
   useEffect(() => {
-    if (!hasHandledInitialActiveItem.current) {
-      hasHandledInitialActiveItem.current = true;
+    // Scroll only the horizontal strip. scrollIntoView would also scroll the
+    // window, which jumped the page away from the hero on load.
+    const item = itemRefs.current[activeIndex];
+    const strip = item?.parentElement;
+
+    if (!item || !strip) {
       return;
     }
 
-    itemRefs.current[activeIndex]?.scrollIntoView({
+    strip.scrollTo({
+      left:
+        strip.scrollLeft +
+        item.getBoundingClientRect().left -
+        strip.getBoundingClientRect().left -
+        (strip.clientWidth - item.offsetWidth) / 2,
       behavior: 'smooth',
-      block: 'nearest',
-      inline: 'center',
     });
   }, [activeIndex]);
 

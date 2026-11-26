@@ -20,7 +20,10 @@ export function HeroSection() {
               aria-hidden
               className="invisible pointer-events-none np-hero-title max-w-full normal-case font-heading text-[clamp(2.15rem,5.2vw,4.3rem)] font-semibold leading-[1.08] tracking-tight"
             >
-              {heroContent.titles.reduce((a, b) => (b.length > a.length ? b : a))}_
+              {heroContent.titles.reduce((a, b) =>
+                b.length > a.length ? b : a,
+              )}
+              _
             </div>
             <TextType
               text={heroContent.titles}
@@ -43,6 +46,9 @@ export function HeroSection() {
             </LandingButton>
             <LandingButton to="/products" variant="quiet">
               {heroContent.secondaryCta}
+            </LandingButton>
+            <LandingButton to="https://support.netpro.africa" variant="quiet">
+              Support
             </LandingButton>
           </div>
           <HeroStatsPanel className="w-full max-w-6xl" />

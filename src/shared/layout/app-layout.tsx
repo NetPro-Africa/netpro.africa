@@ -58,7 +58,7 @@ const siteLinks = [
   { label: 'NetPro International', href: 'https://www.netpro.international' },
   { label: 'NetPro Software', href: 'https://www.netpro.software' },
   { label: 'Netpro Academy', href: 'https://academy.netpro.africa' },
-  { label: 'Netpro Support', href: 'https:/support.netpro.africa' },
+  { label: 'Netpro Support', href: 'https://support.netpro.africa' },
 ] as const;
 
 const officeLocations = [
@@ -194,19 +194,28 @@ export function AppLayout({ children }: PropsWithChildren) {
               sales@netpro.africa
             </a>
           </div>
-          <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-            <SelectTrigger className="h-auto gap-2 border-transparent bg-transparent p-0 text-sm font-medium text-primary-foreground shadow-none hover:bg-transparent focus-visible:ring-0 [&>svg:last-child]:text-primary-foreground/70">
-              <MapPinIcon className="size-4" aria-hidden="true" />
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {countryLocations.map((country) => (
-                <SelectItem key={country.value} value={country.value}>
-                  {country.label} &mdash; {country.cities}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              className="inline-flex items-center gap-2"
+              href="https://academy.netpro.africa"
+            >
+              Netpro Academy
+            </a>
+            <span className="h-5 w-px bg-white/40" aria-hidden="true" />
+            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+              <SelectTrigger className="h-auto gap-2 border-transparent bg-transparent p-0 text-sm font-medium text-primary-foreground shadow-none hover:bg-transparent focus-visible:ring-0 [&>svg:last-child]:text-primary-foreground/70">
+                <MapPinIcon className="size-4" aria-hidden="true" />
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {countryLocations.map((country) => (
+                  <SelectItem key={country.value} value={country.value}>
+                    {country.label} &mdash; {country.cities}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </div>
       <header className="sticky top-0 z-40 border-b border-white/8 bg-background/94 supports-backdrop-filter:bg-background/90">
