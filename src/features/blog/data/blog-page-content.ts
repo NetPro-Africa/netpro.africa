@@ -50,7 +50,7 @@ export const blogPosts: BlogPost[] = [
     authorInitials: 'LT',
     date: '15 / 01 / 2023',
     readTime: '6 minutes',
-    image: assetUrl('/assets/netpro/logo.png'),
+    image: assetUrl('/assets/netpro/logo.webp'),
     imageAlt: 'NetPro brand mark on a dark textured card',
     featured: true,
   },
@@ -65,7 +65,7 @@ export const blogPosts: BlogPost[] = [
     authorInitials: 'DL',
     date: 'March 2019',
     readTime: '6 min read',
-    image: assetUrl('/assets/netpro/project-corporate.png'),
+    image: assetUrl('/assets/netpro/project-corporate.webp'),
     imageAlt: 'Corporate website interface preview',
   },
   {
@@ -79,7 +79,7 @@ export const blogPosts: BlogPost[] = [
     authorInitials: 'AT',
     date: 'March 2019',
     readTime: '6 min read',
-    image: assetUrl('/assets/netpro/project-fitness.png'),
+    image: assetUrl('/assets/netpro/project-fitness.webp'),
     imageAlt: 'Mobile app project interface preview',
   },
   {
@@ -93,7 +93,7 @@ export const blogPosts: BlogPost[] = [
     authorInitials: 'BC',
     date: 'March 2019',
     readTime: '6 min read',
-    image: assetUrl('/assets/netpro/project-commerce.png'),
+    image: assetUrl('/assets/netpro/project-commerce.webp'),
     imageAlt: 'E-commerce project interface preview',
   },
   {
@@ -107,7 +107,7 @@ export const blogPosts: BlogPost[] = [
     authorInitials: 'SR',
     date: 'March 2019',
     readTime: '6 min read',
-    image: assetUrl('/assets/netpro/project-travel.png'),
+    image: assetUrl('/assets/netpro/project-travel.webp'),
     imageAlt: 'Travel website project interface preview',
   },
   {
@@ -121,7 +121,7 @@ export const blogPosts: BlogPost[] = [
     authorInitials: 'MA',
     date: 'April 2020',
     readTime: '7 min read',
-    image: assetUrl('/assets/netpro/background.jpg'),
+    image: assetUrl('/assets/netpro/background.webp'),
     imageAlt: 'Dark digital background used for technology story',
   },
 ];

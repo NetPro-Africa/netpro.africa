@@ -47,7 +47,7 @@ export function SiteCta() {
 
         <div className="np-site-cta-mark" aria-hidden="true">
           <img
-            src={assetUrl('/assets/netpro/logo.png')}
+            src={assetUrl('/assets/netpro/logo.webp')}
             alt=""
             className="np-site-cta-logo"
           />

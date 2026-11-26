@@ -13,10 +13,16 @@ import {
   HomePage,
   NewsArticlePage,
   NewsPage,
+  preloadAllPages,
   ProjectsPage,
   ServicesPage,
 } from '@/app/router/lazy-pages';
 import { routerBasePath } from '@/shared/config/site';
+import {
+  NotFoundPage,
+  PageLoading,
+  RouteErrorPage,
+} from '@/shared/pages/system-pages';
 import { organizationJsonLd, pageSeo, routeHead } from '@/shared/config/seo';
 
 const rootRoute = createRootRoute({
@@ -114,8 +120,13 @@ const routeTree = rootRoute.addChildren([
 export const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
+  defaultNotFoundComponent: NotFoundPage,
+  defaultErrorComponent: RouteErrorPage,
+  defaultPendingComponent: PageLoading,
   basepath: routerBasePath,
 });
+
+preloadAllPages();
 
 declare module '@tanstack/react-router' {
   interface Register {

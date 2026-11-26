@@ -170,7 +170,7 @@ export const projects: LandingProject[] = [
     date: 'January 2022',
     description:
       'A commerce experience with clear product discovery, secure checkout flows, and a responsive storefront.',
-    image: assetUrl('/assets/netpro/project-commerce.png'),
+    image: assetUrl('/assets/netpro/project-commerce.webp'),
   },
   {
     title: 'Mobile App for Enhanced Fitness',
@@ -178,7 +178,7 @@ export const projects: LandingProject[] = [
     date: 'March 2022',
     description:
       'A fitness product with guided plans, progress tracking, and a polished user experience across screens.',
-    image: assetUrl('/assets/netpro/project-fitness.png'),
+    image: assetUrl('/assets/netpro/project-fitness.webp'),
   },
   {
     title: 'Modern Corporate Website',
@@ -186,7 +186,7 @@ export const projects: LandingProject[] = [
     date: 'April 2022',
     description:
       'A refreshed corporate presence with stronger hierarchy, consistent visual language, and responsive layouts.',
-    image: assetUrl('/assets/netpro/project-corporate.png'),
+    image: assetUrl('/assets/netpro/project-corporate.webp'),
   },
   {
     title: 'Digital Marketing Success Story',
@@ -194,7 +194,7 @@ export const projects: LandingProject[] = [
     date: 'May 2022',
     description:
       'A campaign and website system that improved message clarity, search visibility, and qualified inquiries.',
-    image: assetUrl('/assets/netpro/project-travel.png'),
+    image: assetUrl('/assets/netpro/project-travel.webp'),
   },
 ];
 

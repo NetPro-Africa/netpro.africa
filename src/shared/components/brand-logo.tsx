@@ -18,7 +18,7 @@ export function BrandLogo({ className }: BrandLogoProps) {
       aria-label="NetPro home"
     >
       <img
-        src={assetUrl('/assets/netpro/logo.png')}
+        src={assetUrl('/assets/netpro/logo.webp')}
         alt=""
         className="h-10 w-auto max-w-40 object-contain sm:h-11 sm:max-w-44"
         aria-hidden="true"

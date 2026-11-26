@@ -93,7 +93,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'ems',
     title: 'Educational Management System',
-    image: assetUrl('/assets/netpro/Educational Management System.png'),
+    image: assetUrl('/assets/netpro/Educational Management System.webp'),
     tags: [
       { label: 'Education Software', icon: GraduationCapIcon },
       { label: 'AI-Powered', icon: SparklesIcon },
@@ -139,7 +139,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'lms-education',
     title: 'Learning Management System',
-    image: assetUrl('/assets/netpro/Library Management System.png'),
+    image: assetUrl('/assets/netpro/Library Management System.webp'),
     tags: [
       { label: 'E-Learning Ready', icon: MonitorSmartphoneIcon },
       { label: 'Education Software', icon: GraduationCapIcon },
@@ -179,7 +179,7 @@ const educationProducts: SoftwareProject[] = [
     id: 'rtms',
     title: 'Results & Transcript Management System',
     image: assetUrl(
-      '/assets/netpro/Results & Transcript Management System.png',
+      '/assets/netpro/Results & Transcript Management System.webp',
     ),
     tags: [
       { label: 'Academic Records', icon: DatabaseIcon },
@@ -226,7 +226,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'jms',
     title: 'Academic Journal Management System',
-    image: assetUrl('/assets/netpro/Academic Journal Management System.png'),
+    image: assetUrl('/assets/netpro/Academic Journal Management System.webp'),
     tags: [
       { label: 'Research Publishing', icon: Globe2Icon },
       { label: 'Editorial Workflow', icon: BriefcaseBusinessIcon },
@@ -268,7 +268,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'siwes',
     title: 'Student Industrial Work Experience System',
-    image: assetUrl('/assets/netpro/SIWES Management System.png'),
+    image: assetUrl('/assets/netpro/SIWES Management System.webp'),
     tags: [
       { label: 'SIWES', icon: BriefcaseBusinessIcon },
       { label: 'Accreditation Ready', icon: ShieldCheckIcon },
@@ -311,7 +311,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'cpms',
     title: 'Clinical Placement Management System',
-    image: assetUrl('/assets/netpro/Clinical placement management system.png'),
+    image: assetUrl('/assets/netpro/Clinical placement management system.webp'),
     tags: [
       { label: 'Clinical Placement', icon: BriefcaseBusinessIcon },
       { label: 'Accreditation Ready', icon: ShieldCheckIcon },
@@ -354,7 +354,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'drs',
     title: 'Digital Project Repository System',
-    image: assetUrl('/assets/netpro/Digital Project Repository System.png'),
+    image: assetUrl('/assets/netpro/Digital Project Repository System.webp'),
     tags: [
       { label: 'Research Repository', icon: DatabaseIcon },
       { label: 'Knowledge Preservation', icon: ShieldCheckIcon },
@@ -397,7 +397,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'qms',
     title: 'Quality Management System',
-    image: assetUrl('/assets/netpro/Quality Management System.png'),
+    image: assetUrl('/assets/netpro/Quality Management System.webp'),
     tags: [
       { label: 'Quality Assurance', icon: ShieldCheckIcon },
       { label: 'Accreditation Support', icon: GraduationCapIcon },
@@ -443,7 +443,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'hrms-education',
     title: 'Human Resource Management System',
-    image: assetUrl('/assets/netpro/Human Resource Management System.png'),
+    image: assetUrl('/assets/netpro/Human Resource Management System.webp'),
     tags: [
       { label: 'Education HR', icon: BriefcaseBusinessIcon },
       { label: 'Payroll & Appraisal', icon: BarChart3Icon },
@@ -486,7 +486,7 @@ const educationProducts: SoftwareProject[] = [
   {
     id: 'library-lms',
     title: 'Library Management System',
-    image: assetUrl('/assets/netpro/Library Management System.png'),
+    image: assetUrl('/assets/netpro/Library Management System.webp'),
     tags: [
       { label: 'Library Operations', icon: DatabaseIcon },
       { label: 'E-Library', icon: Globe2Icon },
@@ -528,7 +528,7 @@ const healthcareProducts: SoftwareProject[] = [
   {
     id: 'hms',
     title: 'Hospital Management System',
-    image: assetUrl('/assets/netpro/Hospital Management System.png'),
+    image: assetUrl('/assets/netpro/Hospital Management System.webp'),
     tags: [
       { label: 'Healthcare Software', icon: ShieldCheckIcon },
       { label: 'NHIA Aware', icon: BarChart3Icon },
@@ -568,7 +568,7 @@ const healthcareProducts: SoftwareProject[] = [
     id: 'shims',
     title: 'Student Health Information Management System',
     image: assetUrl(
-      '/assets/netpro/Student Health Information Management System.png',
+      '/assets/netpro/Student Health Information Management System.webp',
     ),
     tags: [
       { label: 'Campus Health', icon: GraduationCapIcon },
@@ -612,7 +612,7 @@ const healthcareProducts: SoftwareProject[] = [
   {
     id: 'hhs',
     title: 'Home Health Software',
-    image: assetUrl('/assets/netpro/Home Health Software.png'),
+    image: assetUrl('/assets/netpro/Home Health Software.webp'),
     tags: [
       { label: 'Home-Based Care', icon: MonitorSmartphoneIcon },
       { label: 'Care Coordination', icon: BriefcaseBusinessIcon },
@@ -656,7 +656,7 @@ const healthcareProducts: SoftwareProject[] = [
     id: 'tvhs',
     title: 'Telemedicine / Virtual Healthcare Solutions',
     image: assetUrl(
-      '/assets/netpro/Telemedicine Virtual Healthcare Solutions.png',
+      '/assets/netpro/Telemedicine Virtual Healthcare Solutions.webp',
     ),
     tags: [
       { label: 'Home-Based Care', icon: MonitorSmartphoneIcon },
@@ -699,7 +699,7 @@ const healthcareProducts: SoftwareProject[] = [
 //   {
 //     id: 'mfbs',
 //     title: 'Microfinance Bank Management System',
-//     image: assetUrl('/assets/netpro/Microfinance Bank Management System.png'),
+//     image: assetUrl('/assets/netpro/Microfinance Bank Management System.webp'),
 //     tags: [
 //       { label: 'Core Banking', icon: BarChart3Icon },
 //       { label: 'CBN Aware', icon: ShieldCheckIcon },
@@ -746,7 +746,7 @@ const healthcareProducts: SoftwareProject[] = [
 //   {
 //     id: 'csms',
 //     title: 'Cooperative Society Management System',
-//     image: assetUrl('/assets/netpro/Cooperative Society Management System.png'),
+//     image: assetUrl('/assets/netpro/Cooperative Society Management System.webp'),
 //     tags: [
 //       { label: 'Cooperatives', icon: BriefcaseBusinessIcon },
 //       { label: 'Thrift & Credit', icon: BarChart3Icon },
@@ -794,7 +794,7 @@ const healthcareProducts: SoftwareProject[] = [
 //     id: 'lms-fin',
 //     title: 'Digital Lending & Loan Management System',
 //     image: assetUrl(
-//       '/assets/netpro/Digital Lending & Loan Management System.png',
+//       '/assets/netpro/Digital Lending & Loan Management System.webp',
 //     ),
 //     tags: [
 //       { label: 'Digital Lending', icon: SmartphoneIcon },
@@ -842,7 +842,7 @@ const healthcareProducts: SoftwareProject[] = [
 //   {
 //     id: 'abp',
 //     title: 'Agent Banking Management Platform',
-//     image: assetUrl('/assets/netpro/Agent Banking Management Platform.png'),
+//     image: assetUrl('/assets/netpro/Agent Banking Management Platform.webp'),
 //     tags: [
 //       { label: 'Agent Banking', icon: Globe2Icon },
 //       { label: 'Network Visibility', icon: LineChartIcon },
@@ -885,7 +885,7 @@ const healthcareProducts: SoftwareProject[] = [
 //   {
 //     id: 'mbapp',
 //     title: 'Mobile Banking Application',
-//     image: assetUrl('/assets/netpro/Mobile Banking Application.png'),
+//     image: assetUrl('/assets/netpro/Mobile Banking Application.webp'),
 //     tags: [
 //       { label: 'Digital Banking', icon: SmartphoneIcon },
 //       { label: 'White Label', icon: BriefcaseBusinessIcon },
@@ -929,7 +929,7 @@ const healthcareProducts: SoftwareProject[] = [
 //     id: 'pmts',
 //     title: 'Payment & Transaction Management System',
 //     image: assetUrl(
-//       '/assets/netpro/Payment & Transaction Management System.png',
+//       '/assets/netpro/Payment & Transaction Management System.webp',
 //     ),
 //     tags: [
 //       { label: 'Payments Infrastructure', icon: Globe2Icon },
@@ -980,7 +980,7 @@ const enterpriseProducts: SoftwareProject[] = [
   {
     id: 'hrms-enterprise',
     title: 'Human Resource Management System',
-    image: assetUrl('/assets/netpro/Human Resource Management System.png'),
+    image: assetUrl('/assets/netpro/Human Resource Management System.webp'),
     tags: [
       { label: 'Enterprise HR', icon: BriefcaseBusinessIcon },
       { label: 'Payroll Compliance', icon: BarChart3Icon },
@@ -1028,7 +1028,7 @@ const enterpriseProducts: SoftwareProject[] = [
     id: 'jmis',
     title: 'Judiciary Management Information System',
     image: assetUrl(
-      '/assets/netpro/Judiciary Management Information System.png',
+      '/assets/netpro/Judiciary Management Information System.webp',
     ),
     tags: [
       { label: 'Justice Administration', icon: ShieldCheckIcon },
@@ -1076,7 +1076,7 @@ const enterpriseProducts: SoftwareProject[] = [
   {
     id: 'pms',
     title: 'Property Management Software',
-    image: assetUrl('/assets/netpro/Property Management Software.png'),
+    image: assetUrl('/assets/netpro/Property Management Software.webp'),
     tags: [
       { label: 'Property Operations', icon: BriefcaseBusinessIcon },
       { label: 'Rent & Maintenance', icon: BarChart3Icon },
@@ -1123,7 +1123,7 @@ const enterpriseProducts: SoftwareProject[] = [
   {
     id: 'nbaccs',
     title: 'Conveyancing Compliance System',
-    image: assetUrl('/assets/netpro/NBA Conveyancing Compliance System.png'),
+    image: assetUrl('/assets/netpro/NBA Conveyancing Compliance System.webp'),
     tags: [
       { label: 'Legal Compliance', icon: ShieldCheckIcon },
       { label: 'Property Transactions', icon: Globe2Icon },
@@ -1217,7 +1217,7 @@ export const featuredDeployments: SoftwareProject[] = [
   {
     id: 'uisto-recruitment',
     title: 'AI-Powered Recruitment System',
-    image: assetUrl('/assets/netpro/AI-Powered Recruitment System.png'),
+    image: assetUrl('/assets/netpro/AI-Powered Recruitment System.webp'),
     tags: [
       { label: 'Education Technology', icon: GraduationCapIcon },
       { label: 'Artificial Intelligence', icon: SparklesIcon },
@@ -1256,7 +1256,7 @@ export const featuredDeployments: SoftwareProject[] = [
   {
     id: 'fpno-siwes',
     title: 'AI Powered SIWES Management System',
-    image: assetUrl('/assets/netpro/SIWES Management System.png'),
+    image: assetUrl('/assets/netpro/SIWES Management System.webp'),
     tags: [
       { label: 'Education Technology', icon: GraduationCapIcon },
       { label: 'Student Industrial Training', icon: BriefcaseBusinessIcon },
@@ -1296,7 +1296,7 @@ export const featuredDeployments: SoftwareProject[] = [
     id: 'imo-judiciary',
     title: 'Judiciary Management Information System',
     image: assetUrl(
-      '/assets/netpro/Judiciary Management Information System.png',
+      '/assets/netpro/Judiciary Management Information System.webp',
     ),
     tags: [
       { label: 'Enterprise Technology', icon: BriefcaseBusinessIcon },
@@ -1337,7 +1337,7 @@ export const featuredDeployments: SoftwareProject[] = [
   {
     id: 'ancilla-transformation',
     title: 'Technology Transformation Programme',
-    image: assetUrl('/assets/netpro/Technology Transformation Programme.png'),
+    image: assetUrl('/assets/netpro/Technology Transformation Programme.webp'),
     tags: [
       { label: 'Healthcare Technology', icon: ShieldCheckIcon },
       { label: 'Digital Transformation', icon: SparklesIcon },
@@ -1376,7 +1376,7 @@ export const featuredDeployments: SoftwareProject[] = [
   {
     id: 'fpno-elearning',
     title: 'AI-Powered E-Learning Transformation',
-    image: assetUrl('/assets/netpro/AI-Powered E-Learning Transformation.png'),
+    image: assetUrl('/assets/netpro/AI-Powered E-Learning Transformation.webp'),
     tags: [
       { label: 'Education Technology', icon: GraduationCapIcon },
       { label: 'E-Learning', icon: MonitorSmartphoneIcon },
@@ -1416,7 +1416,7 @@ export const featuredDeployments: SoftwareProject[] = [
   {
     id: 'holy-family-hms',
     title: 'AI Powered Hospital Management System Deployment',
-    image: assetUrl('/assets/netpro/Hospital Management System.png'),
+    image: assetUrl('/assets/netpro/Hospital Management System.webp'),
     tags: [
       { label: 'Healthcare Technology', icon: ShieldCheckIcon },
       { label: 'Hospital Operations Management', icon: LayoutDashboardIcon },
@@ -1455,7 +1455,7 @@ export const featuredDeployments: SoftwareProject[] = [
   {
     id: 'cun-jms',
     title: 'AI Powered Academic Journal Management System',
-    image: assetUrl('/assets/netpro/Academic Journal Management System.png'),
+    image: assetUrl('/assets/netpro/Academic Journal Management System.webp'),
     tags: [
       { label: 'Education Technology', icon: GraduationCapIcon },
       { label: 'Research Publishing', icon: Globe2Icon },
@@ -1494,7 +1494,7 @@ export const featuredDeployments: SoftwareProject[] = [
   // {
   //   id: 'imopoly-induction',
   //   title: 'Digital Induction Programme',
-  //   image: assetUrl('/assets/netpro/Digital Induction Programme.png'),
+  //   image: assetUrl('/assets/netpro/Digital Induction Programme.webp'),
   //   tags: [
   //     { label: 'Education Technology', icon: GraduationCapIcon },
   //     { label: 'Digital Onboarding', icon: MonitorSmartphoneIcon },

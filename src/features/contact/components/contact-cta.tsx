@@ -35,7 +35,7 @@ export function ContactCta() {
             netpro
           </div>
           <img
-            src={assetUrl('/assets/netpro/logo.png')}
+            src={assetUrl('/assets/netpro/logo.webp')}
             alt=""
             className="absolute bottom-12 left-[58%] w-28 border-0 outline-none sm:w-36"
             loading="lazy"

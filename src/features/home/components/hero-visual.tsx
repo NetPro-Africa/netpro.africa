@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { assetUrl } from '@/shared/config/site';
 
-const heroBackgroundSrc = assetUrl('/assets/netpro/background.jpg');
+const heroBackgroundSrc = assetUrl('/assets/netpro/background.webp');
 
 export function HeroVisual() {
   const imageRef = useRef<HTMLImageElement>(null);
