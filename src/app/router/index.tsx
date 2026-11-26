@@ -11,6 +11,8 @@ import {
   CareersPage,
   ContactPage,
   HomePage,
+  NewsArticlePage,
+  NewsPage,
   ProjectsPage,
   ServicesPage,
 } from '@/app/router/lazy-pages';
@@ -78,6 +80,25 @@ const blogRoute = createRoute({
   head: () => routeHead(pageSeo.blog),
 });
 
+const newsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/news',
+  component: NewsPage,
+  // ?page= keeps the reader's place when they go back from an article.
+  validateSearch: (search: Record<string, unknown>): { page: number } => {
+    const page = Number(search.page);
+    return { page: Number.isInteger(page) && page > 0 ? page : 1 };
+  },
+  head: () => routeHead(pageSeo.news),
+});
+
+const newsArticleRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/news/$id',
+  component: NewsArticlePage,
+  head: () => routeHead(pageSeo.news),
+});
+
 const routeTree = rootRoute.addChildren([
   homeRoute,
   servicesRoute,
@@ -86,6 +107,8 @@ const routeTree = rootRoute.addChildren([
   contactRoute,
   careersRoute,
   blogRoute,
+  newsRoute,
+  newsArticleRoute,
 ]);
 
 export const router = createRouter({

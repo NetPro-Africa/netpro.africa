@@ -1,6 +1,7 @@
 import { FocusAreasSection } from '@/features/home/components/focus-areas-section';
 import { HeroSection } from '@/features/home/components/hero-section';
 import { HomeFaqSection } from '@/features/home/components/home-faq-section';
+import { LatestNewsSection } from '@/features/home/components/latest-news-section';
 import { ServiceTiersSection } from '@/features/home/components/service-tiers-section';
 import { TechPartnersSection } from '@/features/home/components/tech-partners-strip';
 import { TestimonialsSection } from '@/features/home/components/testimonials-section';
@@ -60,6 +61,13 @@ const homeSections: AnimatedPageSectionConfig[] = [
     y: 32,
     scale: 0.995,
     amount: 0.24,
+  },
+  {
+    id: 'latest-news',
+    Component: LatestNewsSection,
+    y: 32,
+    scale: 0.995,
+    amount: 0.2,
   },
   {
     id: 'faq',

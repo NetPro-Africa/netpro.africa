@@ -21,3 +21,9 @@ export const CareersPage = lazy(() =>
 export const BlogPage = lazy(() =>
   import('@/features/blog/pages/blog-page').then((m) => ({ default: m.BlogPage }))
 );
+export const NewsPage = lazy(() =>
+  import('@/features/news/pages/news-page').then((m) => ({ default: m.NewsPage }))
+);
+export const NewsArticlePage = lazy(() =>
+  import('@/features/news/pages/news-article-page').then((m) => ({ default: m.NewsArticlePage }))
+);

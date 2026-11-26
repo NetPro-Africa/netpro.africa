@@ -20,6 +20,11 @@ export const navigationItems = [
     path: '/about-us',
     description: 'Mission, leadership, process, and company story',
   },
+  {
+    title: 'News',
+    path: '/news',
+    description: 'Announcements, launches, and company stories',
+  },
 
   // {
   //   title: 'Careers',
@@ -41,4 +46,5 @@ export type NavigationPath =
   | '/about-us'
   | '/contact-us'
   | '/careers'
-  | '/blog';
+  | '/blog'
+  | '/news';

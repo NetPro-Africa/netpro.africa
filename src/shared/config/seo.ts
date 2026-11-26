@@ -70,6 +70,14 @@ export const pageSeo = {
       'NetPro blog, technology insights Nigeria, software innovation Africa, digital transformation Nigeria, education technology blog, fintech insights Africa',
     path: '/blog',
   },
+  news: {
+    title: 'Latest News | NetPro International Limited',
+    description:
+      'Product launches, partnerships and announcements from NetPro International Limited and the institutions it serves across Africa.',
+    keywords:
+      'NetPro news, NetPro announcements, technology news Nigeria, education technology Africa, software launches Nigeria',
+    path: '/news',
+  },
 } satisfies Record<string, PageSeo>;
 
 export const productCategorySeo = {

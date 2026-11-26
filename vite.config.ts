@@ -18,9 +18,25 @@ function normalizeBasePath(value?: string) {
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  const cmsOrigin = env.VITE_NETPRO_API_URL?.trim()
 
   return {
     base: normalizeBasePath(env.VITE_APP_BASE_PATH),
+    // The CMS only allows its own site origins through CORS. In dev, the app
+    // calls /netpro-api/* here and Vite forwards it server-side. See
+    // src/shared/config/cms.ts.
+    server: cmsOrigin
+      ? {
+          proxy: {
+            '/netpro-api': {
+              target: cmsOrigin,
+              changeOrigin: true,
+              secure: true,
+              rewrite: (p) => p.replace(/^\/netpro-api/, ''),
+            },
+          },
+        }
+      : undefined,
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
