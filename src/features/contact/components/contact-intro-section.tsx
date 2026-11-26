@@ -56,7 +56,8 @@ function ContactActionGroup({
       </h2>
       <div className="mt-10 grid min-w-0 overflow-hidden rounded-(--np-radius-xl) border border-white/10 bg-(--np-surface) lg:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
         {actions.map((action) => (
-          <ContactActionCard key={`${title}-${action.label}`} action={action} />
+          // Labels repeat ("Call Us" twice); the href is unique per card.
+          <ContactActionCard key={action.href} action={action} />
         ))}
       </div>
     </section>
