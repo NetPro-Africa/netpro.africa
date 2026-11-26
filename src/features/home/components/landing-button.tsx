@@ -36,7 +36,7 @@ export function LandingButton({
       className={cn(
         'np-focus h-12 rounded-full px-6 text-base font-medium transition-[background-color,box-shadow,transform,border-color] duration-(--np-duration-fast) ease-(--np-ease-out) active:scale-[0.98]',
         variant === 'primary'
-          ? 'border-primary bg-primary text-primary-foreground shadow-(--np-shadow-blue) hover:bg-(--np-blue-strong)'
+          ? 'border-primary-fill bg-primary-fill text-primary-foreground shadow-(--np-shadow-blue) hover:bg-(--np-blue-strong)'
           : 'border-white/10 bg-white/[0.07] text-foreground hover:bg-white/10',
         className,
       )}

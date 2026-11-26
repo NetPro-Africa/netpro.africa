@@ -167,7 +167,7 @@ function ArticleView({ article }: { article: NewsArticle }) {
           <div className="flex items-center justify-between gap-4 border-y border-white/8 py-4">
             <div className="flex min-w-0 items-center gap-3">
               <span
-                className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+                className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary-fill text-sm font-semibold text-primary-foreground"
                 aria-hidden="true"
               >
                 NP

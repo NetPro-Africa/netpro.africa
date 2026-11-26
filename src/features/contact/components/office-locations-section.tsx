@@ -48,7 +48,7 @@ export function OfficeLocationsSection() {
                   className="np-focus mt-12 inline-flex min-h-14 items-center gap-4 rounded-full border border-white/10 bg-white/2.5 py-2 pl-6 pr-2 text-base font-medium text-foreground transition-[background-color,border-color,transform] duration-(--np-duration-fast) hover:border-white/20 hover:bg-white/5 active:scale-[0.98]"
                 >
                   Get Direction
-                  <span className="inline-flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <span className="inline-flex size-11 items-center justify-center rounded-full bg-primary-fill text-primary-foreground">
                     <ActionIcon className="size-5" aria-hidden="true" />
                   </span>
                 </a>

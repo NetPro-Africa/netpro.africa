@@ -45,7 +45,7 @@ export function SuccessStoriesSection() {
           onClick={() => setSelectedStory(successStories[0])}
         >
           View All Stories
-          <span className="ml-3 inline-flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground">
+          <span className="ml-3 inline-flex size-11 items-center justify-center rounded-full bg-primary-fill text-primary-foreground">
             <ArrowIcon />
           </span>
         </Button>

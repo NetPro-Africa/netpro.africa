@@ -12,6 +12,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-fill: var(--np-blue-fill);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -56,6 +57,10 @@
   --np-border-strong: oklch(1 0 0 / 16%);
   --np-blue: oklch(0.62 0.145 251);
   --np-blue-strong: oklch(0.69 0.155 251);
+  /* Blue behind white text (buttons, badges, the top bar). --np-blue is too
+     light for that (3.5:1); this one passes WCAG AA (4.8:1). --np-blue stays
+     for blue text, which needs the lighter shade on the dark page. */
+  --np-blue-fill: oklch(0.54 0.145 251);
   --np-blue-soft: oklch(0.62 0.145 251 / 16%);
   --np-ring: oklch(0.72 0.14 251 / 64%);
   --np-toggle-bg: oklch(1 0 0 / 8%);
@@ -127,6 +132,7 @@
   --np-border-strong: oklch(0.18 0.012 250 / 18%);
   --np-blue: oklch(0.56 0.15 251);
   --np-blue-strong: oklch(0.5 0.16 251);
+  --np-blue-fill: oklch(0.52 0.15 251);
   --np-blue-soft: oklch(0.56 0.15 251 / 12%);
   --np-ring: oklch(0.56 0.15 251 / 44%);
   --np-toggle-bg: oklch(1 0 0 / 86%);

@@ -39,10 +39,13 @@ export function BenefitCard({ benefit }: BenefitCardProps) {
       </div>
       <Link
         to="/services"
+        // Several cards say "Learn more"; name each link's destination for
+        // search engines and screen readers (the visible words come first).
+        aria-label={`Learn more about ${benefit.subtitle ?? benefit.title}`}
         className="np-focus group inline-flex min-h-14 items-center gap-5 rounded-full border border-white/10 px-7 text-base font-medium text-foreground transition-[background-color,border-color,transform] duration-(--np-duration-fast) ease-(--np-ease-out) hover:border-white/18 hover:bg-white/[0.04] active:scale-[0.98]"
       >
         Learn more
-        <span className="inline-flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform duration-(--np-duration-fast) group-hover:translate-x-0.5">
+        <span className="inline-flex size-11 items-center justify-center rounded-full bg-primary-fill text-primary-foreground transition-transform duration-(--np-duration-fast) group-hover:translate-x-0.5">
           <ArrowRightIcon className="size-5" aria-hidden="true" />
         </span>
       </Link>

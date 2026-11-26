@@ -17,7 +17,7 @@ export function AboutPillars() {
               className={cn(
                 'np-focus inline-flex min-h-16 w-full items-center rounded-[var(--np-radius-md)] border px-6 text-base font-semibold transition-[background-color,border-color,color,transform] duration-(--np-duration-fast) active:scale-[0.98] lg:min-h-20',
                 activeTitle === pillar.title
-                  ? 'border-primary bg-primary text-primary-foreground'
+                  ? 'border-primary-fill bg-primary-fill text-primary-foreground'
                   : 'border-white/16 bg-white/[0.02] text-foreground hover:bg-white/[0.06]',
               )}
               onClick={() => setActiveTitle(pillar.title)}

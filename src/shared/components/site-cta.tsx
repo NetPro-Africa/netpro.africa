@@ -31,7 +31,7 @@ export function SiteCta() {
           <div className="mt-6 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
             <Button
               asChild
-              className="np-focus h-13 w-full max-w-xs rounded-full border-primary bg-primary px-6 text-base font-medium text-primary-foreground shadow-(--np-shadow-blue) transition-[background-color,transform] duration-(--np-duration-fast) hover:bg-(--np-blue-strong) active:scale-[0.98] sm:h-14 sm:w-auto sm:min-w-58 sm:px-7"
+              className="np-focus h-13 w-full max-w-xs rounded-full border-primary-fill bg-primary-fill px-6 text-base font-medium text-primary-foreground shadow-(--np-shadow-blue) transition-[background-color,transform] duration-(--np-duration-fast) hover:bg-(--np-blue-strong) active:scale-[0.98] sm:h-14 sm:w-auto sm:min-w-58 sm:px-7"
             >
               <Link to="/contact-us">Request Consultation</Link>
             </Button>
@@ -48,6 +48,8 @@ export function SiteCta() {
         <div className="np-site-cta-mark" aria-hidden="true">
           <img
             src={assetUrl('/assets/netpro/logo.webp')}
+            width={800}
+            height={267}
             alt=""
             className="np-site-cta-logo"
           />

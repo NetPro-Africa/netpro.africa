@@ -136,7 +136,7 @@ export function ApplicationDialog({ job, open, onOpenChange }: ApplicationDialog
                   type="file"
                   accept=".pdf,.doc,.docx"
                   required
-                  className="min-h-12 rounded-full bg-white/[0.025] px-4 pr-12 text-base file:mr-4 file:rounded-full file:bg-primary file:px-4 file:text-primary-foreground"
+                  className="min-h-12 rounded-full bg-white/[0.025] px-4 pr-12 text-base file:mr-4 file:rounded-full file:bg-primary-fill file:px-4 file:text-primary-foreground"
                 />
                 <UploadIcon className="pointer-events-none absolute right-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
               </div>

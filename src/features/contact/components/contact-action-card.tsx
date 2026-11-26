@@ -19,7 +19,7 @@ export function ContactActionCard({ action }: ContactActionCardProps) {
           <Icon className="size-5 shrink-0 text-foreground" aria-hidden="true" />
           <span className="truncate">{action.value}</span>
         </span>
-        <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+        <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-primary-fill text-primary-foreground">
           <ActionIcon className="size-5" aria-hidden="true" />
         </span>
       </a>

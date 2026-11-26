@@ -251,7 +251,7 @@ function CarouselButton({ label, children, onClick }: CarouselButtonProps) {
   return (
     <button
       type="button"
-      className="np-focus inline-flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-(--np-shadow-blue) transition-[background-color,transform] duration-(--np-duration-fast) hover:bg-(--np-blue-strong) active:scale-[0.95] sm:size-12"
+      className="np-focus inline-flex size-11 items-center justify-center rounded-full bg-primary-fill text-primary-foreground shadow-(--np-shadow-blue) transition-[background-color,transform] duration-(--np-duration-fast) hover:bg-(--np-blue-strong) active:scale-[0.95] sm:size-12"
       aria-label={label}
       onClick={onClick}
     >

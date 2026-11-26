@@ -87,7 +87,7 @@ export function InquiryFormSection() {
         <div className="mt-10 flex flex-col items-center gap-4">
           <button
             type="submit"
-            className="np-focus inline-flex min-h-14 items-center gap-3 rounded-full bg-primary px-7 text-base font-medium text-primary-foreground shadow-(--np-shadow-blue) transition-[background-color,transform] duration-(--np-duration-fast) hover:bg-(--np-blue-strong) active:scale-[0.97]"
+            className="np-focus inline-flex min-h-14 items-center gap-3 rounded-full bg-primary-fill px-7 text-base font-medium text-primary-foreground shadow-(--np-shadow-blue) transition-[background-color,transform] duration-(--np-duration-fast) hover:bg-(--np-blue-strong) active:scale-[0.97]"
           >
             Send your Inquiry
             <SubmitIcon className="size-5" aria-hidden="true" />

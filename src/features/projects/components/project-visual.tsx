@@ -31,6 +31,7 @@ import {
 
 import type { SoftwareProject } from '@/features/projects/data/projects-page-content'
 import { cn } from '@/lib/utils'
+import { productImageSrcSet } from '@/shared/lib/responsive-image'
 
 type ProductVisualProps = {
   project: SoftwareProject
@@ -306,6 +307,12 @@ export function ProductVisual({
       >
         <img
           src={project.image}
+          srcSet={productImageSrcSet(project.image)}
+          sizes={
+            isFeature
+              ? '(min-width: 1024px) 50vw, 100vw'
+              : '(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw'
+          }
           alt={`${project.title} preview`}
           className="size-full object-cover object-center"
           loading="lazy"

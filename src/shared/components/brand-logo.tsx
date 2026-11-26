@@ -19,6 +19,12 @@ export function BrandLogo({ className }: BrandLogoProps) {
     >
       <img
         src={assetUrl('/assets/netpro/logo.webp')}
+        // Shown at most 176px wide; the 480px copy is plenty, even on retina.
+        srcSet={`${assetUrl('/assets/netpro/logo-480w.webp')} 480w, ${assetUrl('/assets/netpro/logo.webp')} 800w`}
+        sizes="176px"
+        // Intrinsic size, so the browser reserves the space before it loads.
+        width={800}
+        height={267}
         alt=""
         className="h-10 w-auto max-w-40 object-contain sm:h-11 sm:max-w-44"
         aria-hidden="true"

@@ -83,11 +83,22 @@ const organizationScript = {
   children: seo.jsonLd(seo.organizationJsonLd),
 };
 
+// The page font is only found once the CSS has loaded (~1 s in on a phone).
+// Preloading the Latin subset from the HTML fetches it alongside the CSS.
+const fontFile = (await readdir(path.join(distDir, 'assets'))).find((file) =>
+  /^geist-latin-wght-normal-.*\.woff2$/.test(file),
+);
+const fontPreload = fontFile
+  ? `<link rel="preload" as="font" type="font/woff2" crossorigin href="${seo.withBasePath(`/assets/${fontFile}`)}" />`
+  : '';
+
 /** The built index.html with its placeholder title and description taken out
  * (and, on a re-run, the tags this script wrote into it last time). */
 const shellHtml = (await readFile(path.join(distDir, 'index.html'), 'utf8'))
   .replace(/\s*<(title|script)\s+data-prerender[\s\S]*?<\/\1>/g, '')
-  .replace(/\s*<(meta|link)\s+data-prerender[\s\S]*?\/>/g, '');
+  .replace(/\s*<(meta|link)\s+data-prerender[\s\S]*?\/>/g, '')
+  .replace(/\s*<link rel="preload" as="(?:font|image)"[^>]*>/g, '')
+  .replace(/(<meta name="viewport"[^>]*>)/, `$1\n    ${fontPreload}`);
 
 const withHead = (head) =>
   shellHtml.replace(
@@ -152,8 +163,24 @@ const articles = await getPublishedArticles();
 
 const pages = Object.values(seo.pageSeo);
 
+// The home page's largest element is the hero background, which only the
+// JavaScript mentions. Preloading it from the HTML starts the download ~2 s
+// sooner on phones. Must match the <img> srcset/sizes in hero-visual.tsx.
+const heroPreload = `<link rel="preload" as="image" fetchpriority="high" imagesrcset="${escapeHtml(
+  seo.heroImage.srcSet,
+)}" imagesizes="${escapeHtml(seo.heroImage.sizes)}" />`;
+const withHeroPreload = (html) =>
+  html.replace(/(<meta name="viewport"[^>]*>)/, `$1\n    ${heroPreload}`);
+
 await Promise.all([
-  ...pages.map((page) => writePage(page.path, withHead(seo.routeHead(page)))),
+  ...pages.map((page) =>
+    writePage(
+      page.path,
+      page.path === '/'
+        ? withHeroPreload(withHead(seo.routeHead(page)))
+        : withHead(seo.routeHead(page)),
+    ),
+  ),
   ...articles.map((article) =>
     writePage(seo.articlePath(article._id), withHead(seo.articleHead(article))),
   ),
@@ -272,6 +299,11 @@ ErrorDocument 404 ${seo.withBasePath('/404.html')}
   # Hashed file names: safe to cache for a year.
   <FilesMatch "\\.(?:js|css|woff2?)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Images keep their names when replaced, so a month, not a year: a changed
+  # image reaches returning visitors within 30 days at worst.
+  <FilesMatch "\\.(?:webp|avif|png|jpe?g|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
   </FilesMatch>
   # HTML must always be fresh, or visitors keep loading the previous deploy.
   <FilesMatch "\\.html$">

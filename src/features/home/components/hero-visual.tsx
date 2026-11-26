@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { assetUrl } from '@/shared/config/site';
-
-const heroBackgroundSrc = assetUrl('/assets/netpro/background.webp');
+import { heroImage } from '@/shared/lib/responsive-image';
 
 export function HeroVisual() {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -57,7 +55,9 @@ export function HeroVisual() {
     >
       <img
         ref={imageRef}
-        src={heroBackgroundSrc}
+        src={heroImage.src}
+        srcSet={heroImage.srcSet}
+        sizes={heroImage.sizes}
         alt=""
         className="np-hero-image absolute inset-x-0 -top-48 h-[calc(100%+24rem)] w-full scale-[1.12] object-cover object-[50%_42%]"
         fetchPriority="high"

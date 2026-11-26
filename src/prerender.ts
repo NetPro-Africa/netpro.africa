@@ -12,3 +12,4 @@ export { absoluteUrl, appBasePath, withBasePath } from '@/shared/config/site';
 export { cmsOrigin } from '@/shared/config/cms';
 export { articleHead, articlePath } from '@/features/news/lib/news-seo';
 export { isArticleId } from '@/features/news/lib/news-utils';
+export { heroImage } from '@/shared/lib/responsive-image';

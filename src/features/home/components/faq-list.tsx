@@ -32,7 +32,7 @@ export function FaqList({ faqs }: FaqListProps) {
                 {faq.question}
               </span>
               <span
-                className="relative inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-[background-color,transform,box-shadow] duration-300 ease-out group-hover:bg-(--np-blue-strong) group-data-[state=open]:rotate-45 group-data-[state=open]:shadow-[0_0_0_6px_oklch(0.63_0.18_250/0.12)] group-active:scale-[0.96]"
+                className="relative inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-primary-fill text-primary-foreground transition-[background-color,transform,box-shadow] duration-300 ease-out group-hover:bg-(--np-blue-strong) group-data-[state=open]:rotate-45 group-data-[state=open]:shadow-[0_0_0_6px_oklch(0.63_0.18_250/0.12)] group-active:scale-[0.96]"
                 aria-hidden="true"
               >
                 <PlusIcon className="absolute size-5 transition-[opacity,transform,filter] duration-300 ease-out group-data-[state=open]:scale-75 group-data-[state=open]:opacity-0 group-data-[state=open]:blur-[2px]" />

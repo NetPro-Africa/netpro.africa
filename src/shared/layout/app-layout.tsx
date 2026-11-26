@@ -135,6 +135,10 @@ const socialLinks = [
 
 export function AppLayout({ children }: PropsWithChildren) {
   const [selectedCountry, setSelectedCountry] = useState('nigeria');
+  const selectedLocation =
+    countryLocations.find((country) => country.value === selectedCountry) ??
+    countryLocations[0];
+  const selectedLocationName = `${selectedLocation.label} — ${selectedLocation.cities}`;
   const isMobileNavOpen = useUiStore((state) => state.isMobileNavOpen);
   const setMobileNavOpen = useUiStore((state) => state.setMobileNavOpen);
   const pathname = useRouterState({
@@ -168,7 +172,7 @@ export function AppLayout({ children }: PropsWithChildren) {
 
   return (
     <div className="flex min-h-svh flex-col bg-background text-foreground">
-      <div className="hidden bg-primary text-primary-foreground md:block">
+      <div className="hidden bg-primary-fill text-primary-foreground md:block">
         <div className="np-container flex min-h-12 items-center justify-between gap-6 text-sm font-medium">
           <div className="flex flex-wrap items-center gap-4">
             <a
@@ -203,7 +207,9 @@ export function AppLayout({ children }: PropsWithChildren) {
             </a>
             <span className="h-5 w-px bg-white/40" aria-hidden="true" />
             <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="h-auto gap-2 border-transparent bg-transparent p-0 text-sm font-medium text-primary-foreground shadow-none hover:bg-transparent focus-visible:ring-0 [&>svg:last-child]:text-primary-foreground/70">
+              <SelectTrigger
+                aria-label={`Office location: ${selectedLocationName}`}
+                className="h-auto gap-2 border-transparent bg-transparent p-0 text-sm font-medium text-primary-foreground shadow-none hover:bg-transparent focus-visible:ring-0 [&>svg:last-child]:text-primary-foreground/70">
                 <MapPinIcon className="size-4" aria-hidden="true" />
                 <SelectValue />
               </SelectTrigger>
