@@ -21,10 +21,40 @@ export const getNewsDate = (article: NewsArticle) =>
     new Date(article.createdAt),
   );
 
-const plainText = (html: string) =>
-  html
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/&nbsp;/g, ' ')
+const NAMED_ENTITIES: Record<string, string> = {
+  nbsp: ' ',
+  amp: '&',
+  quot: '"',
+  apos: "'",
+  lt: '<',
+  gt: '>',
+  lsquo: '‘',
+  rsquo: '’',
+  ldquo: '“',
+  rdquo: '”',
+  ndash: '–',
+  mdash: '—',
+  hellip: '…',
+};
+
+/** Decodes the entities the CMS editor writes, so excerpts and meta
+ * descriptions read "it’s", not "it&rsquo;s". Runs in Node at build time too,
+ * so it can't lean on the DOM. */
+function decodeEntities(text: string) {
+  return text.replace(/&(#x[\da-f]+|#\d+|[a-z]+);/gi, (match, entity: string) => {
+    if (entity[0] === '#') {
+      const code =
+        entity[1].toLowerCase() === 'x'
+          ? Number.parseInt(entity.slice(2), 16)
+          : Number(entity.slice(1));
+      return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : '';
+    }
+    return NAMED_ENTITIES[entity.toLowerCase()] ?? match;
+  });
+}
+
+export const plainText = (html: string) =>
+  decodeEntities(html.replace(/<[^>]*>/g, ' '))
     .replace(/\s+/g, ' ')
     .trim();
 

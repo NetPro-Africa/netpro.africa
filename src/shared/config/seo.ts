@@ -1,4 +1,3 @@
-import type { MetaDescriptor } from '@tanstack/react-router';
 import { absoluteUrl } from '@/shared/config/site';
 
 type PageSeo = {
@@ -120,7 +119,28 @@ export function canonicalUrl(path: string) {
   return absoluteUrl(path);
 }
 
-export function routeHead(seo: PageSeo) {
+/** `max-image-preview:large` lets Google Discover and search show big
+ * thumbnails, which Discover all but requires. */
+export const indexableRobots = 'index, follow, max-image-preview:large';
+
+type HeadMeta =
+  | { title: string }
+  | { name: string; content: string }
+  | { property: string; content: string };
+
+export type RouteHead = {
+  meta: HeadMeta[];
+  links: { rel: string; href: string }[];
+  scripts?: { type: string; children: string }[];
+};
+
+/** JSON for a `<script type="application/ld+json">`. `<` is escaped so text
+ * from the CMS can never close the script tag early. */
+export function jsonLd(data: unknown) {
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
+export function routeHead(seo: PageSeo): RouteHead {
   const url = canonicalUrl(seo.path);
 
   return {
@@ -129,7 +149,7 @@ export function routeHead(seo: PageSeo) {
       { name: 'description', content: seo.description },
       { name: 'keywords', content: seo.keywords },
       { name: 'application-name', content: siteName },
-      { name: 'robots', content: 'index, follow' },
+      { name: 'robots', content: indexableRobots },
       { property: 'og:site_name', content: siteName },
       { property: 'og:type', content: 'website' },
       { property: 'og:title', content: seo.title },
@@ -140,7 +160,7 @@ export function routeHead(seo: PageSeo) {
       { name: 'twitter:title', content: seo.title },
       { name: 'twitter:description', content: seo.description },
       { name: 'twitter:image', content: defaultOgImage },
-    ] satisfies MetaDescriptor[],
+    ],
     links: [{ rel: 'canonical', href: url }],
   };
 }

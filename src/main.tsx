@@ -10,6 +10,13 @@ import './index.css'
 
 initializeThemeMode()
 
+// Head tags written into the HTML for crawlers (index.html and the build's
+// pre-rendered pages). The router renders its own from here on; leaving these
+// in would mean two titles, descriptions and canonicals.
+document.head
+  .querySelectorAll('[data-prerender]')
+  .forEach((element) => element.remove())
+
 // A tab opened before a deploy can ask for files that are gone; reload once.
 window.addEventListener('vite:preloadError', (event) => {
   if (!canReloadForNewVersion()) return

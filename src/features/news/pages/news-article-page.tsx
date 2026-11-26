@@ -1,6 +1,6 @@
 import { Link, useParams } from '@tanstack/react-router';
 import { ArrowLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 import { useNewsArticle, useNewsList } from '../api/use-news';
 import type { NewsArticle } from '../api/news-types';
@@ -21,7 +21,6 @@ import {
 } from '../lib/news-utils';
 import { cn } from '@/lib/utils';
 import { isCmsConfigured } from '@/shared/config/cms';
-import { siteName } from '@/shared/config/seo';
 import { absoluteUrl } from '@/shared/config/site';
 
 const READING_COLUMN = 'mx-auto w-full max-w-[42rem]';
@@ -233,10 +232,6 @@ export function NewsArticlePage() {
   const more = (latest?.news ?? [])
     .filter((item) => item._id !== id)
     .slice(0, 3);
-
-  useEffect(() => {
-    if (article) document.title = `${article.title} | ${siteName}`;
-  }, [article]);
 
   let body;
 

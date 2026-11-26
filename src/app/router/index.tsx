@@ -23,7 +23,21 @@ import {
   PageLoading,
   RouteErrorPage,
 } from '@/shared/pages/system-pages';
-import { organizationJsonLd, pageSeo, routeHead } from '@/shared/config/seo';
+import {
+  jsonLd,
+  organizationJsonLd,
+  pageSeo,
+  routeHead,
+} from '@/shared/config/seo';
+import { queryClient } from '@/app/providers/query-client';
+import { isNotFound, newsApi } from '@/features/news/api/news-client';
+import { newsKeys } from '@/features/news/api/use-news';
+import {
+  articleFallbackHead,
+  articleHead,
+} from '@/features/news/lib/news-seo';
+import { isArticleId } from '@/features/news/lib/news-utils';
+import { isCmsConfigured } from '@/shared/config/cms';
 
 const rootRoute = createRootRoute({
   component: RootRouteComponent,
@@ -31,7 +45,7 @@ const rootRoute = createRootRoute({
     scripts: [
       {
         type: 'application/ld+json',
-        children: JSON.stringify(organizationJsonLd),
+        children: jsonLd(organizationJsonLd),
       },
     ],
   }),
@@ -102,7 +116,32 @@ const newsArticleRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/news/$id',
   component: NewsArticlePage,
-  head: () => routeHead(pageSeo.news),
+  // Loads the article into the page's query cache (on hover too, through
+  // preload) so head() can give it its own title, canonical, social card and
+  // JSON-LD. Never throws: the page shows its own loading and error states.
+  loader: async ({ params: { id } }) => {
+    if (!isCmsConfigured || !isArticleId(id)) {
+      return { article: null, notFound: true };
+    }
+
+    const queryKey = newsKeys.article(id);
+
+    try {
+      const { news } = await queryClient.ensureQueryData({
+        queryKey,
+        queryFn: () => newsApi.article(id),
+      });
+      return { article: news, notFound: false };
+    } catch (error) {
+      // Let the page fetch afresh and show its own error, not a cached one.
+      queryClient.removeQueries({ queryKey, exact: true });
+      return { article: null, notFound: isNotFound(error) };
+    }
+  },
+  head: ({ params, loaderData }) =>
+    loaderData?.article
+      ? articleHead(loaderData.article)
+      : articleFallbackHead(params.id, loaderData?.notFound ?? false),
 });
 
 const routeTree = rootRoute.addChildren([
